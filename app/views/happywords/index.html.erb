@@ -1,0 +1,29 @@
+<html>
+  <p id="ajax-text"></p>
+
+    <%= button_to "Get a Joke", @rand_joke, remote: true, method: :get %><%= button_to "Get an Adage", @rand_adage, remote: true, method: :get %>
+
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script>
+    
+      $(function () {
+        function randomIntFromInterval(min,max) { return Math.floor(Math.random()*(max-min+1)+min); }
+        $("input").click(function (e){
+          var valueClicked = e.target.value;
+          if (valueClicked === "Get a Joke") {
+            var url = "./happywords/" + randomIntFromInterval(1, 3);
+          } else{
+            var url = "./happywords/" + randomIntFromInterval(4, 6);
+          };
+
+          $.get(url, function (happyword) {
+            var start_pos = happyword.indexOf('<body>') + 6;
+            var end_pos = happyword.indexOf('</body>',start_pos);
+            var text_to_get = happyword.substring(start_pos,end_pos);
+            $("#ajax-text").text(text_to_get);
+          });
+        });
+      });
+    </script>
+
+</html>

@@ -1,0 +1,25 @@
+<%= form_for(@happyword) do |f| %>
+  <% if @happyword.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@happyword.errors.count, "error") %> prohibited this happyword from being saved:</h2>
+
+      <ul>
+      <% @happyword.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :genre %><br>
+    <%= f.text_field :genre %>
+  </div>
+  <div class="field">
+    <%= f.label :phrase %><br>
+    <%= f.text_area :phrase %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
